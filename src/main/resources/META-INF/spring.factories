@@ -1,0 +1,7 @@
+
+
+
+
+org.springframework.boot.env.EnvironmentPostProcessor  = com.ebayirnbank.ebayironbankstarter.ProfileAutodetectEnvironmentPostProcessor
+org.springframework.context.ApplicationContextInitializer = com.ebayirnbank.ebayironbankstarter.ProfileGuardApplicationContextInitializer
+org.springframework.boot.autoconfigure.EnableAutoConfiguration = com.ebayirnbank.ebayironbankstarter.RavenConf
