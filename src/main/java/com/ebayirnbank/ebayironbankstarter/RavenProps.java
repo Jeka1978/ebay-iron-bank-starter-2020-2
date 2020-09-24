@@ -11,4 +11,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "raven")
 public class RavenProps {
     private String destination;
+    private String packageToScan;
 }

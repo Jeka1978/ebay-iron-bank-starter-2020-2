@@ -1,12 +1,12 @@
 package com.ebayirnbank.ebayironbankstarter;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Evgeny Borisov
@@ -17,11 +17,19 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableConfigurationProperties(RavenProps.class)
 public class RavenConf {
 
-
+    @Bean
+    public CustomPointcut customPointcut(){
+        return new CustomPointcut();
+    }
 
     @Bean(name = "notEnoughMoneyExceptionHandler")
-    public ExceptionHandlerAspect exceptionHandlerAspect(){
-        return new ExceptionHandlerAspect();
+    public ExceptionHandlerInterceptor exceptionHandlerAspect(){
+        return new ExceptionHandlerInterceptor();
+    }
+
+    @Bean
+    public DefaultPointcutAdvisor myDefaultPointcutAdvisor(){
+        return new DefaultPointcutAdvisor(customPointcut(), exceptionHandlerAspect());
     }
 
     @Bean
@@ -29,5 +37,12 @@ public class RavenConf {
         return new RavenSender();
     }
 
-
 }
+
+
+
+
+
+
+
+
